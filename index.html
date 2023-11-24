@@ -45,6 +45,11 @@
         #fortune {
             font-size: 15px;
         }
+                /* 날짜 표시 스타일 수정 */
+        #currentDate {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -55,11 +60,13 @@
     <!-- '운세 보기' 버튼 클릭시 checkFortune 함수 실행 -->
     <button onclick="checkFortune()">운세 보기</button>
 
-    <div id="fortune-container">
+ <div id="fortune-container">
         <!-- 띠 이름이 표시될 엘리먼트 -->
         <h2 id="zodiacName"></h2>
         <!-- 띠 이미지가 표시될 엘리먼트 -->
         <img id="zodiacImage" alt="띠 이미지">
+             <!-- 오늘 날짜 표시 엘리먼트 -->
+        <p id="currentDate"></p>
         <!-- 운세가 표시될 엘리먼트 -->
         <p id="fortune"></p>
         <!-- '다시 하기' 버튼 클릭시 resetGame 함수 실행 -->
@@ -272,8 +279,19 @@ function getZodiacData(birthYear) {
             document.getElementById('fortune-container').style.display = 'block';
         }
 
+        // 오늘 날짜를 가져와 표시하는 함수
+        function displayCurrentDate() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = currentDate.getDate().toString().padStart(2, '0');
+            const formattedDate = `${year}년 ${month}월 ${day}일`;
+            document.getElementById('currentDate').textContent = formattedDate;
+        }
+
         // 운세 확인 함수
         function checkFortune() {
+            displayCurrentDate();
             // 입력된 생년 가져오기
             const birthYear = document.getElementById('birthYear').value;
             // 현재 연도 가져오기
@@ -304,6 +322,7 @@ function getZodiacData(birthYear) {
             document.getElementById('fortune').textContent = '';
             // 운세 컨테이너를 숨김
             document.getElementById('fortune-container').style.display = 'none';
+                  // 초기화 시 오늘 날짜 표시
         }
     </script>
 
